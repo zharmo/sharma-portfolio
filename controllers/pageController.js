@@ -3,14 +3,19 @@ const Skill = require('../models/Skill');
 const Experience = require('../models/Experience');
 const Education = require('../models/Education');
 const Certificate = require('../models/Certificate');
-const Testimonial = require('../models/Testimonial'); // ✅ added missing model
+const Testimonial = require('../models/Testimonial');
 const path = require('path');
 
 exports.getHome = async (req, res) => {
   const featuredProjects = await Project.getFeaturedProjects();
-  const skills = await Skill.getAll();
-  const testimonials = await Testimonial.getAll(); // now works
-  res.render('pages/home', { featuredProjects, skills, testimonials, user: req.session.user });
+  const skillsGrouped = await Skill.getAllGrouped(); // returns object, not array
+  const testimonials = await Testimonial.getAll();
+  res.render('pages/home', { 
+    featuredProjects, 
+    skills: skillsGrouped, 
+    testimonials, 
+    user: req.session.user 
+  });
 };
 
 exports.getAbout = (req, res) => { 
@@ -28,8 +33,8 @@ exports.getProjectDetails = async (req, res) => {
 };
 
 exports.getSkills = async (req, res) => {
-  const skills = await Skill.getAllGrouped();
-  res.render('pages/skills', { skills, user: req.session.user });
+  const skillsGrouped = await Skill.getAllGrouped();
+  res.render('pages/skills', { skills: skillsGrouped, user: req.session.user });
 };
 
 exports.getExperience = async (req, res) => {
@@ -51,8 +56,8 @@ exports.getServices = (req, res) => {
   res.render('pages/services', { user: req.session.user }); 
 };
 
-exports.getContactPage = (req, res) => {
-  res.render('pages/contact', { success: null, errors: null, user: req.session.user });
+exports.getContactPage = (req, res) => { 
+  res.render('pages/contact', { success: null, errors: null, user: req.session.user }); 
 };
 
 exports.downloadResume = (req, res) => {

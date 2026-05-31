@@ -4,12 +4,8 @@ const adminController = require('../controllers/adminController');
 const authMiddleware = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
-// Login
 router.get('/login', adminController.loginForm);
 router.post('/login', adminController.login);
-router.get('/logout', adminController.logout);
-
-// Dashboard (protected)
 router.get('/dashboard', authMiddleware.isAuthenticated, adminController.dashboard);
 
 // Projects
@@ -44,5 +40,6 @@ router.get('/testimonials/:id/delete', authMiddleware.isAuthenticated, adminCont
 
 // Messages
 router.get('/messages', authMiddleware.isAuthenticated, adminController.listMessages);
+router.get('/logout', adminController.logout);
 
 module.exports = router;
