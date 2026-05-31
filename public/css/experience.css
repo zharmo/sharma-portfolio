@@ -1,0 +1,88 @@
+/* Experience page styles *//* ========== EXPERIENCE TIMELINE – PROFESSIONAL ========== */
+
+.timeline-wrapper {
+  position: relative;
+  padding: 2rem 0;
+}
+
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, var(--primary), var(--accent));
+}
+
+@media (max-width: 768px) {
+  .timeline::before {
+    left: 20px;
+  }
+}
+
+.timeline-item {
+  position: relative;
+  margin-bottom: 3rem;
+}
+
+.timeline-dot {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--primary);
+  border: 3px solid white;
+  box-shadow: var(--shadow-sm);
+  z-index: 2;
+}
+
+@media (max-width: 768px) {
+  .timeline-dot {
+    left: 20px;
+  }
+}
+
+.timeline-content {
+  width: 45%;
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s;
+}
+
+.timeline-item:nth-child(odd) .timeline-content {
+  margin-left: auto;
+}
+
+@media (max-width: 768px) {
+  .timeline-content {
+    width: calc(100% - 50px);
+    margin-left: 50px !important;
+  }
+}
+
+.timeline-content:hover {
+  transform: scale(1.02);
+  box-shadow: var(--shadow-xl);
+}
+
+.timeline-content h4 {
+  margin-bottom: 0.25rem;
+}
+
+.timeline-date {
+  font-size: 0.85rem;
+  color: var(--primary);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}

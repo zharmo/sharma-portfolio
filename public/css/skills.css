@@ -1,0 +1,60 @@
+/* Skills page styles *//* ========== SKILLS PAGE – ADVANCED PROGRESS BARS ========== */
+
+.skills-category {
+  margin-bottom: 2rem;
+}
+
+.category-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--primary);
+  display: inline-block;
+}
+
+.skill-item {
+  margin-bottom: 1.25rem;
+}
+
+.skill-name {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.25rem;
+  font-weight: 500;
+}
+
+.skill-percent {
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.progress {
+  height: 10px;
+  border-radius: 5px;
+  background: var(--gray-200);
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, var(--primary), var(--accent));
+  border-radius: 5px;
+  position: relative;
+  overflow: visible;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  width: 10px;
+  height: 14px;
+  background: var(--primary);
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.skill-item:hover .progress-bar::after {
+  opacity: 1;
+}

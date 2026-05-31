@@ -1,0 +1,69 @@
+/* Admin panel styles *//* ========== ADMIN PANEL – DARK/LIGHT PROFESSIONAL ========== */
+
+.admin-wrapper {
+  background: #f1f5f9;
+  min-height: 100vh;
+  padding: 2rem;
+}
+
+.admin-card {
+  background: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s;
+  box-shadow: var(--shadow-sm);
+}
+
+.admin-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-lg);
+}
+
+.admin-card .number {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.admin-table {
+  background: white;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+
+.admin-table th {
+  background: var(--gray-100);
+  font-weight: 600;
+  border-bottom: 2px solid var(--gray-200);
+}
+
+.admin-table td, .admin-table th {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.btn-admin {
+  border-radius: 2rem;
+  padding: 0.3rem 1rem;
+  font-size: 0.85rem;
+}
+
+.admin-sidebar {
+  background: var(--secondary);
+  color: white;
+  border-radius: 1rem;
+  padding: 1.5rem;
+}
+
+.admin-sidebar a {
+  color: #cbd5e1;
+  display: block;
+  padding: 0.5rem 0;
+  transition: 0.2s;
+}
+
+.admin-sidebar a:hover, .admin-sidebar a.active {
+  color: white;
+  padding-left: 0.5rem;
+}

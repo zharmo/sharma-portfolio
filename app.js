@@ -18,9 +18,15 @@ app.use(helmet({
   contentSecurityPolicy: false, // Allows inline scripts (Bootstrap uses some)
 }));
 
+// ========== RATE LIMITING (Fixed: skip static files, higher limit in dev) ==========
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
+  max: process.env.NODE_ENV === 'production' ? 100 : 10000, // 10,000 requests in dev
+  skip: (req) => {
+    // Skip rate limiting for static assets (CSS, JS, images, uploads)
+    const staticPaths = ['/css/', '/js/', '/images/', '/uploads/', '/favicon.ico'];
+    return staticPaths.some(path => req.url.startsWith(path));
+  },
   message: 'Too many requests from this IP, please try again later.',
 });
 app.use(limiter);
@@ -29,9 +35,11 @@ app.use(limiter);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 
-// ========== BODY PARSING & STATIC FILES ==========
+// ========== BODY PARSING ==========
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// ========== STATIC FILES (must be before routes) ==========
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
@@ -77,6 +85,7 @@ db.sync().then(() => {
   app.listen(PORT, () => {
     console.log(`✅ Server running on http://localhost:${PORT}`);
     console.log(`📁 Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`🚀 Rate limit: ${process.env.NODE_ENV === 'production' ? '100 requests per 15 min' : '10000 requests per 15 min (static files skipped)'}`);
   });
 }).catch(err => {
   console.error('❌ Database connection failed:', err);

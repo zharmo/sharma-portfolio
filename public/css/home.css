@@ -1,6 +1,74 @@
-.hero {
-  background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
-  min-height: 80vh;
-  display: flex;
-  align-items: center;
+/* Home page specific styles *//* ========== HOME PAGE – ADVANCED STYLES ========== */
+
+/* Hero buttons */
+.hero .btn-group {
+  gap: 1rem;
+}
+
+.hero .btn {
+  transition: all 0.3s;
+}
+
+.hero .btn-light {
+  background: white;
+  color: var(--primary);
+  border: none;
+}
+
+.hero .btn-light:hover {
+  background: #f8fafc;
+  transform: translateY(-3px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+/* Feature cards animation */
+.feature-card {
+  animation: fadeInUp 0.6s ease backwards;
+}
+
+.feature-card:nth-child(1) { animation-delay: 0.1s; }
+.feature-card:nth-child(2) { animation-delay: 0.2s; }
+.feature-card:nth-child(3) { animation-delay: 0.3s; }
+
+/* Skills preview section */
+.skills-preview .progress {
+  margin-top: 0.25rem;
+}
+
+/* Testimonials carousel (if used) */
+.testimonial-card {
+  background: white;
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: var(--shadow-md);
+  transition: transform 0.3s;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--shadow-xl);
+}
+
+.testimonial-card .client-img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 1rem;
+}
+
+/* CTA banner */
+.cta-banner {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 2rem;
+  padding: 3rem;
+  text-align: center;
+  color: white;
+  margin: 3rem 0;
+}
+
+.cta-banner .btn {
+  background: white;
+  color: var(--primary);
+  margin-top: 1rem;
 }
