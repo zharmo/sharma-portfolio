@@ -2,30 +2,73 @@
 <%- include('../layouts/navbar') %>
 
 <div class="container my-5">
-  <h2>Manage Education</h2>
-  <form action="/admin/education/create" method="POST" class="mb-4">
-    <div class="row mb-2">
-      <div class="col-md-6"><input type="text" name="title" class="form-control" placeholder="Degree/Course" required></div>
-      <div class="col-md-6"><input type="text" name="institution" class="form-control" placeholder="Institution"></div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="section-title mb-0">Manage Education</h1>
+    <a href="/admin/dashboard" class="btn btn-secondary rounded-pill">Back to Dashboard</a>
+  </div>
+
+  <!-- Add Education Form -->
+  <div class="card shadow-sm mb-5 border-0 rounded-4">
+    <div class="card-header bg-primary text-white rounded-top-4 py-3">
+      <h5 class="mb-0"><i class="fas fa-plus me-2"></i>Add New Education</h5>
     </div>
-    <div class="row mb-2">
-      <div class="col-md-4"><input type="text" name="location" placeholder="Location"></div>
-      <div class="col-md-4"><input type="text" name="start_date" placeholder="Start Date"></div>
-      <div class="col-md-4"><input type="text" name="end_date" placeholder="End Date"></div>
+    <div class="card-body p-4">
+      <form action="/admin/education" method="POST">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Degree / Program *</label>
+            <input type="text" name="title" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Institution</label>
+            <input type="text" name="company" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Location</label>
+            <input type="text" name="location" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Start Date</label>
+            <input type="text" name="start_date" class="form-control" placeholder="e.g., 2020">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">End Date</label>
+            <input type="text" name="end_date" class="form-control" placeholder="e.g., 2024">
+          </div>
+          <div class="col-12">
+            <label class="form-label fw-semibold">Description</label>
+            <textarea name="description" rows="3" class="form-control"></textarea>
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary rounded-pill px-4"><i class="fas fa-save me-2"></i>Add Education</button>
+          </div>
+        </div>
+      </form>
     </div>
-    <textarea name="description" class="form-control mb-2" placeholder="Description"></textarea>
-    <button class="btn btn-primary">Add Education</button>
-  </form>
-  <table class="table">
-    <thead><tr><th>Title</th><th>Institution</th><th>Dates</th><th>Actions</th></tr></thead>
-    <tbody>
-      <% educations.forEach(edu => { %>
-        <tr>
-          <td><%= edu.title %></td><td><%= edu.company %></td><td><%= edu.start_date %> - <%= edu.end_date %></td>
-          <td><a href="/admin/education/<%= edu.id %>/delete" class="btn btn-sm btn-danger">Delete</a></td>
-        </tr>
-      <% }) %>
-    </tbody>
-  </table>
+  </div>
+
+  <!-- Education List -->
+  <h3>Your Education History</h3>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr><th>Degree</th><th>Institution</th><th>Period</th><th>Actions</th></tr>
+      </thead>
+      <tbody>
+        <% educations.forEach(edu => { %>
+          <tr>
+            <td><strong><%= edu.title %></strong></td>
+            <td><%= edu.company %></td>
+            <td><%= edu.start_date %> - <%= edu.end_date || 'Present' %></td>
+            <td><a href="/admin/education/<%= edu.id %>/delete" class="btn btn-sm btn-danger rounded-pill" onclick="return confirm('Delete this education entry?')"><i class="fas fa-trash"></i> Delete</a></td>
+          </tr>
+        <% }) %>
+        <% if (educations.length === 0) { %>
+          <tr><td colspan="4" class="text-center text-muted">No education added yet.</td></tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
 </div>
+
 <%- include('../layouts/footer') %>

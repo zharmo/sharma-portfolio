@@ -4,8 +4,12 @@ const adminController = require('../controllers/adminController');
 const authMiddleware = require('../middleware/authMiddleware');
 const upload = require('../middleware/uploadMiddleware');
 
+// Login
 router.get('/login', adminController.loginForm);
 router.post('/login', adminController.login);
+router.get('/logout', adminController.logout);
+
+// Dashboard
 router.get('/dashboard', authMiddleware.isAuthenticated, adminController.dashboard);
 
 // Projects
@@ -33,13 +37,12 @@ router.get('/certificates', authMiddleware.isAuthenticated, adminController.list
 router.post('/certificates', authMiddleware.isAuthenticated, upload.single('image'), adminController.createCertificate);
 router.get('/certificates/:id/delete', authMiddleware.isAuthenticated, adminController.deleteCertificate);
 
-// Testimonials
-router.get('/testimonials', authMiddleware.isAuthenticated, adminController.listTestimonials);
-router.post('/testimonials', authMiddleware.isAuthenticated, upload.single('image'), adminController.createTestimonial);
-router.get('/testimonials/:id/delete', authMiddleware.isAuthenticated, adminController.deleteTestimonial);
+// Testimonials - COMMENTED OUT (uncomment after adding controller methods)
+// router.get('/testimonials', authMiddleware.isAuthenticated, adminController.listTestimonials);
+// router.post('/testimonials', authMiddleware.isAuthenticated, upload.single('image'), adminController.createTestimonial);
+// router.get('/testimonials/:id/delete', authMiddleware.isAuthenticated, adminController.deleteTestimonial);
 
 // Messages
 router.get('/messages', authMiddleware.isAuthenticated, adminController.listMessages);
-router.get('/logout', adminController.logout);
 
 module.exports = router;

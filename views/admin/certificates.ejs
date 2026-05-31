@@ -1,32 +1,68 @@
 <%- include('../layouts/header') %>
 <%- include('../layouts/navbar') %>
-<link rel="stylesheet" href="/css/certificates.css">
+
 <div class="container my-5">
-  <h2>Manage Certificates</h2>
-  <form action="/admin/certificates/create" method="POST" enctype="multipart/form-data" class="mb-4">
-    <div class="row mb-2">
-      <div class="col-md-6"><input type="text" name="title" class="form-control" placeholder="Certificate Title" required></div>
-      <div class="col-md-6"><input type="text" name="organization" class="form-control" placeholder="Organization"></div>
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="section-title mb-0">Manage Certificates</h1>
+    <a href="/admin/dashboard" class="btn btn-secondary rounded-pill">Back to Dashboard</a>
+  </div>
+
+  <div class="card shadow-sm mb-5 border-0 rounded-4">
+    <div class="card-header bg-primary text-white rounded-top-4 py-3">
+      <h5 class="mb-0"><i class="fas fa-plus me-2"></i>Add New Certificate</h5>
     </div>
-    <div class="row mb-2">
-      <div class="col-md-4"><input type="text" name="date_earned" placeholder="Date Earned (e.g., 2024)"></div>
-      <div class="col-md-4"><input type="url" name="credential_link" placeholder="Credential URL"></div>
-      <div class="col-md-4"><input type="file" name="image" class="form-control"></div>
+    <div class="card-body p-4">
+      <form action="/admin/certificates" method="POST" enctype="multipart/form-data">
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Certificate Title *</label>
+            <input type="text" name="title" class="form-control" required>
+          </div>
+          <div class="col-md-6">
+            <label class="form-label fw-semibold">Organization</label>
+            <input type="text" name="organization" class="form-control">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Date Earned</label>
+            <input type="text" name="date_earned" class="form-control" placeholder="e.g., 2024">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Credential URL (optional)</label>
+            <input type="url" name="credential_link" class="form-control" placeholder="https://...">
+          </div>
+          <div class="col-md-4">
+            <label class="form-label fw-semibold">Certificate Image</label>
+            <input type="file" name="image" class="form-control" accept="image/*">
+          </div>
+          <div class="col-12">
+            <button type="submit" class="btn btn-primary rounded-pill px-4"><i class="fas fa-save me-2"></i>Add Certificate</button>
+          </div>
+        </div>
+      </form>
     </div>
-    <button class="btn btn-primary">Add Certificate</button>
-  </form>
+  </div>
+
+  <h3>Your Certificates</h3>
   <div class="row">
     <% certificates.forEach(cert => { %>
-      <div class="col-md-3 mb-3">
-        <div class="card">
-          <img src="<%= cert.image_url %>" class="card-img-top" style="height:150px; object-fit:cover;">
+      <div class="col-md-3 mb-4">
+        <div class="card h-100">
+          <img src="<%= cert.image_url || '/images/cert-placeholder.png' %>" class="card-img-top" style="height:150px; object-fit:cover;">
           <div class="card-body">
-            <h6><%= cert.title %></h6>
-            <a href="/admin/certificates/<%= cert.id %>/delete" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>
+            <h6 class="card-title"><%= cert.title %></h6>
+            <p class="small text-muted"><%= cert.organization %></p>
+            <a href="/admin/certificates/<%= cert.id %>/delete" class="btn btn-sm btn-danger rounded-pill" onclick="return confirm('Delete certificate?')">Delete</a>
+            <% if (cert.credential_link) { %>
+              <a href="<%= cert.credential_link %>" class="btn btn-sm btn-outline-primary rounded-pill" target="_blank">Verify</a>
+            <% } %>
           </div>
         </div>
       </div>
     <% }) %>
+    <% if (certificates.length === 0) { %>
+      <div class="col-12 text-center text-muted">No certificates added yet.</div>
+    <% } %>
   </div>
 </div>
+
 <%- include('../layouts/footer') %>

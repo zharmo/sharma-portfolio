@@ -6,12 +6,11 @@ const getAll = async () => {
 };
 
 const create = async (data) => {
-  // Reuse experiences table with type='education'
-  const { title, institution, location, start_date, end_date, description } = data;
+  const { title, company, location, start_date, end_date, description } = data;
   const result = await db.query(
     `INSERT INTO experiences (title, company, location, start_date, end_date, description, type)
      VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING *`,
-    [title, institution, location, start_date, end_date, description, 'education']
+    [title, company, location, start_date, end_date, description, 'education']
   );
   return result.rows[0];
 };

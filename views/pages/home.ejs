@@ -39,34 +39,47 @@
   <% } %>
 </section>
 
-<!-- Skills Preview -->
+<!-- Core Skills – ALL CATEGORIES (professional grid) -->
 <section class="bg-light py-5">
   <div class="container">
     <h2 class="section-title">Core Skills</h2>
     <% if (typeof skills !== 'undefined' && skills && Object.keys(skills).length > 0) { %>
-      <div class="row">
+      <div class="row g-4">
         <% 
-          var skillEntries = Object.entries(skills);
-          var firstTwo = skillEntries.slice(0, 2);
-          for (var i = 0; i < firstTwo.length; i++) { 
-            var category = firstTwo[i][0];
-            var items = firstTwo[i][1];
+          // Loop through all skill categories (not just first two)
+          var categoryEntries = Object.entries(skills);
+          for (var i = 0; i < categoryEntries.length; i++) { 
+            var category = categoryEntries[i][0];
+            var items = categoryEntries[i][1];
             var skillArray = Array.isArray(items) ? items : [];
         %>
-          <div class="col-md-6 mb-4">
-            <h4 class="mb-3"><%= category %></h4>
-            <% if (skillArray.length > 0) { %>
-              <% for (var j = 0; j < Math.min(skillArray.length, 4); j++) { %>
-                <div class="mb-2">
-                  <span><%= skillArray[j].name %></span>
-                  <div class="progress">
-                   </div>
-                  </div>
-                </div>
-              <% } %>
-            <% } else { %>
-              <p class="text-muted">No skills listed in this category.</p>
-            <% } %>
+          <div class="col-md-6 col-lg-4 mb-4">
+            <div class="card h-100 border-0 shadow-sm rounded-4">
+              <div class="card-header bg-white fw-bold py-3 border-0" style="color: var(--primary); font-size: 1.2rem;">
+                <i class="fas 
+                  <% if(category === 'Frontend') { %>fa-code<% } 
+                  else if(category === 'Backend') { %>fa-server<% }
+                  else if(category === 'Database') { %>fa-database<% }
+                  else if(category === 'Data Science') { %>fa-chart-line<% }
+                  else { %>fa-tools<% } %> me-2"></i>
+                <%= category %>
+              </div>
+              <div class="card-body pt-0">
+                <% if (skillArray.length > 0) { %>
+                  <% for (var j = 0; j < skillArray.length; j++) { %>
+                    <div class="mb-3">
+                      <div class="d-flex justify-content-between mb-1">
+                        <span class="skill-name"><%= skillArray[j].name %></span>
+                        <span class="skill-percent"><%= skillArray[j].percentage || 80 %>%</span>
+                      </div>
+                      
+                    </div>
+                  <% } %>
+                <% } else { %>
+                  <p class="text-muted small">No skills listed in this category.</p>
+                <% } %>
+              </div>
+            </div>
           </div>
         <% } %>
       </div>

@@ -7,7 +7,7 @@ const Certificate = require('../models/Certificate');
 const Testimonial = require('../models/Testimonial');
 const bcrypt = require('bcryptjs');
 
-// ========== AUTH ==========
+// ========== AUTHENTICATION ==========
 exports.loginForm = (req, res) => {
   res.render('admin/login', { error: null });
 };
@@ -18,7 +18,7 @@ exports.login = async (req, res) => {
   const adminHash = process.env.ADMIN_PASSWORD_HASH;
   
   if (!adminHash) {
-    return res.render('admin/login', { error: 'Admin hash missing. Check .env' });
+    return res.render('admin/login', { error: 'Admin hash missing. Check .env file.' });
   }
   
   if (email === adminEmail && bcrypt.compareSync(password, adminHash)) {
@@ -50,7 +50,7 @@ exports.listProjects = async (req, res) => {
 exports.createProject = async (req, res) => {
   const { title, description, technologies, github_link, live_link, is_featured } = req.body;
   const image_url = req.file ? `/uploads/projects/${req.file.filename}` : null;
-  await Project.createProject({ title, description, technologies, image_url, github_link, live_link, is_featured: is_featured === 'on' });
+  await Project.createProject({ title, description, technologies, image_url, github_link, live_link, is_featured: !!is_featured });
   res.redirect('/admin/projects');
 };
 exports.deleteProject = async (req, res) => {
@@ -64,8 +64,7 @@ exports.listSkills = async (req, res) => {
   res.render('admin/skills', { skills });
 };
 exports.createSkill = async (req, res) => {
-  const { category, name, percentage } = req.body;
-  await Skill.create(category, name, percentage || null);
+  await Skill.create(req.body.category, req.body.name, req.body.percentage || null);
   res.redirect('/admin/skills');
 };
 exports.deleteSkill = async (req, res) => {
@@ -97,7 +96,7 @@ exports.createEducation = async (req, res) => {
   res.redirect('/admin/education');
 };
 exports.deleteEducation = async (req, res) => {
-  await Experience.deleteExperience(req.params.id); // education stored in experiences table with type='education'
+  await Experience.deleteExperience(req.params.id); // same table
   res.redirect('/admin/education');
 };
 
@@ -117,7 +116,7 @@ exports.deleteCertificate = async (req, res) => {
   res.redirect('/admin/certificates');
 };
 
-// ========== TESTIMONIALS ==========
+// ========== TESTIMONIALS (all required methods) ==========
 exports.listTestimonials = async (req, res) => {
   const testimonials = await Testimonial.getAll();
   res.render('admin/testimonials', { testimonials });
@@ -133,7 +132,7 @@ exports.deleteTestimonial = async (req, res) => {
   res.redirect('/admin/testimonials');
 };
 
-// ========== MESSAGES ==========
+// ========== CONTACT MESSAGES ==========
 exports.listMessages = async (req, res) => {
   const messages = await Contact.getAllContacts();
   res.render('admin/messages', { messages });

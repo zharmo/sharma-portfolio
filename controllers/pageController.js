@@ -8,7 +8,7 @@ const path = require('path');
 
 exports.getHome = async (req, res) => {
   const featuredProjects = await Project.getFeaturedProjects();
-  const skillsGrouped = await Skill.getAllGrouped(); // returns object, not array
+  const skillsGrouped = await Skill.getAllGrouped(); // returns object like { Frontend: [...], Backend: [...] }
   const testimonials = await Testimonial.getAll();
   res.render('pages/home', { 
     featuredProjects, 
