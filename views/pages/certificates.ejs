@@ -1,0 +1,23 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/navbar') %>
+
+<div class="container my-5">
+  <h1 class="text-center mb-5">Certifications</h1>
+  <div class="row">
+    <% certificates.forEach(cert => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <img src="<%= cert.image_url || '/images/cert-placeholder.png' %>" class="card-img-top" alt="<%= cert.title %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= cert.title %></h5>
+            <p class="card-text"><%= cert.organization %></p>
+            <p class="text-muted"><%= cert.date_earned %></p>
+            <% if (cert.credential_link) { %><a href="<%= cert.credential_link %>" target="_blank" class="btn btn-sm btn-outline-primary">Verify</a><% } %>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

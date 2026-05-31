@@ -1,0 +1,32 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/navbar') %>
+
+<div class="container my-5">
+  <h2>Manage Certificates</h2>
+  <form action="/admin/certificates/create" method="POST" enctype="multipart/form-data" class="mb-4">
+    <div class="row mb-2">
+      <div class="col-md-6"><input type="text" name="title" class="form-control" placeholder="Certificate Title" required></div>
+      <div class="col-md-6"><input type="text" name="organization" class="form-control" placeholder="Organization"></div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-4"><input type="text" name="date_earned" placeholder="Date Earned (e.g., 2024)"></div>
+      <div class="col-md-4"><input type="url" name="credential_link" placeholder="Credential URL"></div>
+      <div class="col-md-4"><input type="file" name="image" class="form-control"></div>
+    </div>
+    <button class="btn btn-primary">Add Certificate</button>
+  </form>
+  <div class="row">
+    <% certificates.forEach(cert => { %>
+      <div class="col-md-3 mb-3">
+        <div class="card">
+          <img src="<%= cert.image_url %>" class="card-img-top" style="height:150px; object-fit:cover;">
+          <div class="card-body">
+            <h6><%= cert.title %></h6>
+            <a href="/admin/certificates/<%= cert.id %>/delete" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')">Delete</a>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+<%- include('../layouts/footer') %>

@@ -1,0 +1,31 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/navbar') %>
+
+<div class="container my-5">
+  <h2>Manage Education</h2>
+  <form action="/admin/education/create" method="POST" class="mb-4">
+    <div class="row mb-2">
+      <div class="col-md-6"><input type="text" name="title" class="form-control" placeholder="Degree/Course" required></div>
+      <div class="col-md-6"><input type="text" name="institution" class="form-control" placeholder="Institution"></div>
+    </div>
+    <div class="row mb-2">
+      <div class="col-md-4"><input type="text" name="location" placeholder="Location"></div>
+      <div class="col-md-4"><input type="text" name="start_date" placeholder="Start Date"></div>
+      <div class="col-md-4"><input type="text" name="end_date" placeholder="End Date"></div>
+    </div>
+    <textarea name="description" class="form-control mb-2" placeholder="Description"></textarea>
+    <button class="btn btn-primary">Add Education</button>
+  </form>
+  <table class="table">
+    <thead><tr><th>Title</th><th>Institution</th><th>Dates</th><th>Actions</th></tr></thead>
+    <tbody>
+      <% educations.forEach(edu => { %>
+        <tr>
+          <td><%= edu.title %></td><td><%= edu.company %></td><td><%= edu.start_date %> - <%= edu.end_date %></td>
+          <td><a href="/admin/education/<%= edu.id %>/delete" class="btn btn-sm btn-danger">Delete</a></td>
+        </tr>
+      <% }) %>
+    </tbody>
+  </table>
+</div>
+<%- include('../layouts/footer') %>

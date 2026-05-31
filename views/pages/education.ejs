@@ -1,0 +1,18 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/navbar') %>
+
+<div class="container my-5">
+  <h1 class="text-center mb-5">Education</h1>
+  <% educations.forEach(edu => { %>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h4><%= edu.title %></h4>
+        <h6 class="text-muted"><%= edu.company %></h6>
+        <p class="text-secondary"><%= edu.start_date %> – <%= edu.end_date %></p>
+        <p><%= edu.description %></p>
+      </div>
+    </div>
+  <% }) %>
+</div>
+
+<%- include('../layouts/footer') %>

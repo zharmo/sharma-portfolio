@@ -1,0 +1,30 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/navbar') %>
+
+<div class="container my-5">
+  <h1 class="text-center mb-5">Technical Skills</h1>
+  <div class="row">
+    <% Object.keys(skills).forEach(category => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header bg-primary text-white"><%= category %></div>
+          <div class="card-body">
+            <ul class="list-unstyled">
+              <% skills[category].forEach(skill => { %>
+                <li><%= skill.name %> 
+                  <% if (skill.percentage) { %>
+                    <div class="progress mt-1 mb-2" style="height: 5px;">
+                      <div class="progress-bar" style="width: <%= skill.percentage %>%;"></div>
+                    </div>
+                  <% } %>
+                </li>
+              <% }) %>
+            </ul>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

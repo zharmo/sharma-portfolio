@@ -1,0 +1,24 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/navbar') %>
+
+<div class="container my-5">
+  <h1 class="text-center mb-5">All Projects</h1>
+  <div class="row">
+    <% projects.forEach(project => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="<%= project.image_url || '/images/placeholder.png' %>" class="card-img-top" alt="<%= project.title %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= project.title %></h5>
+            <p class="card-text"><%= project.description %></p>
+            <p><strong>Tech:</strong> <%= project.technologies %></p>
+            <a href="/projects/<%= project.id %>" class="btn btn-primary">Details</a>
+            <% if (project.github_link) { %><a href="<%= project.github_link %>" class="btn btn-outline-secondary" target="_blank">GitHub</a><% } %>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

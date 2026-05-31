@@ -1,0 +1,6 @@
+.hero {
+  background: linear-gradient(135deg, #0F172A 0%, #2563EB 100%);
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+}

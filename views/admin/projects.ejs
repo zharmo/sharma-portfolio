@@ -1,0 +1,78 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/navbar') %>
+
+<div class="container my-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h1 class="section-title">Manage Projects</h1>
+    <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addProjectModal">+ Add New Project</button>
+  </div>
+
+  <div class="row">
+    <% projects.forEach(project => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card h-100 shadow-sm">
+          <img src="<%= project.image_url || '/images/placeholder.png' %>" class="card-img-top" style="height: 180px; object-fit: cover;">
+          <div class="card-body">
+            <h5 class="card-title"><%= project.title %></h5>
+            <p class="card-text text-muted"><%= project.description.substring(0, 100) %>...</p>
+            <p><strong>Tech:</strong> <%= project.technologies %></p>
+            <div class="d-flex justify-content-between">
+              <a href="<%= project.github_link %>" target="_blank" class="btn btn-sm btn-outline-dark">GitHub</a>
+              <a href="/admin/projects/<%= project.id %>/delete" class="btn btn-sm btn-danger" onclick="return confirm('Delete this project?')">Delete</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<!-- Add Project Modal -->
+<div class="modal fade" id="addProjectModal" tabindex="-1">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header bg-primary text-white">
+        <h5 class="modal-title">Add New Project</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form action="/admin/projects" method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Title</label>
+            <input type="text" name="title" class="form-control" required>
+          </div>
+          <div class="mb-3">
+            <label>Description</label>
+            <textarea name="description" rows="3" class="form-control" required></textarea>
+          </div>
+          <div class="mb-3">
+            <label>Technologies (comma separated)</label>
+            <input type="text" name="technologies" class="form-control" placeholder="React, Node.js, MongoDB">
+          </div>
+          <div class="mb-3">
+            <label>GitHub Link</label>
+            <input type="url" name="github_link" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Live Demo Link</label>
+            <input type="url" name="live_link" class="form-control">
+          </div>
+          <div class="mb-3">
+            <label>Project Image</label>
+            <input type="file" name="image" class="form-control" accept="image/*">
+          </div>
+          <div class="form-check">
+            <input type="checkbox" name="is_featured" class="form-check-input" id="featured">
+            <label class="form-check-label" for="featured">Feature this project on homepage</label>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Project</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>

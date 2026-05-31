@@ -1,0 +1,20 @@
+<%- include('../layouts/header') %>
+<%- include('../layouts/navbar') %>
+
+<div class="container my-5">
+  <h1 class="text-center mb-5">Work Experience</h1>
+  <div class="timeline">
+    <% experiences.filter(exp => exp.type === 'work').forEach(exp => { %>
+      <div class="card mb-3">
+        <div class="card-body">
+          <h4><%= exp.title %></h4>
+          <h6 class="text-muted"><%= exp.company %> | <%= exp.location %></h6>
+          <p class="text-secondary"><%= exp.start_date %> – <%= exp.end_date || 'Present' %></p>
+          <p><%= exp.description %></p>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div>
+
+<%- include('../layouts/footer') %>
