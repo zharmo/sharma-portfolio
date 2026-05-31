@@ -149,3 +149,28 @@
   font-size: 1.25rem;
   font-style: italic;
 }
+
+/* About page hero (smaller than homepage) */
+.page-hero {
+  background: linear-gradient(135deg, var(--secondary) 0%, var(--primary) 100%);
+  padding: 4rem 0;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.page-hero h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.page-hero p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+/* Ensure about image wrapper has proper border radius */
+.about-image-wrapper {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  box-shadow: var(--shadow-xl);
+}

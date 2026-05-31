@@ -1,29 +1,109 @@
 <%- include('../layouts/header') %>
 <%- include('../layouts/navbar') %>
-<link rel="stylesheet" href="/css/about.css">
-<div class="container my-5">
-  <div class="row">
-    <div class="col-lg-8 mx-auto">
-      <h1 class="display-5 fw-bold">About Me</h1>
-      <p class="lead">Software Engineer | Full-Stack Developer | Data Science Enthusiast</p>
-      <hr>
-      <h3>Professional Biography</h3>
-      <p>I am Sharmarke Abdi Abdullahi, a passionate software engineer from Dhaka, Bangladesh, currently pursuing a BSc in Software Engineering at Daffodil International University. I specialize in full-stack development, data science, and AI. My mission is to build impactful technology solutions that solve real-world problems in Somalia and across Africa.</p>
-      
-      <h3 class="mt-4">Career Goals</h3>
-      <p>To become a leading tech entrepreneur and drive digital transformation in emerging markets, focusing on healthtech, edtech, and fintech.</p>
-      
-      <h3 class="mt-4">Technology Interests</h3>
-      <ul>
-        <li>Modern Web Frameworks (React, Next.js, Node.js)</li>
-        <li>Machine Learning & Data Science</li>
-        <li>Cloud Computing & DevOps</li>
-        <li>Open Source Contribution</li>
-      </ul>
-      
-      <h3 class="mt-4">Personal Mission</h3>
-      <p>To leverage technology for social good and empower the next generation of African developers.</p>
+
+<!-- Page Hero (smaller than homepage hero) -->
+<section class="page-hero">
+  <div class="container text-center text-white">
+    <h1 class="display-4 fw-bold">About Me</h1>
+    <p class="lead">Get to know me, my journey, and my mission</p>
+  </div>
+</section>
+
+<!-- Main about content -->
+<div class="about-section container my-5">
+  <div class="row align-items-center g-5">
+    <!-- Left: Profile image -->
+    <div class="col-md-5">
+      <div class="about-image-wrapper">
+        <img src="/images/profile/profile.jpg" alt="Sharmarke Abdi Abdullahi" class="img-fluid">
+      </div>
     </div>
+
+    <!-- Right: Bio & intro -->
+    <div class="col-md-7">
+      <h2 class="section-title">Sharmarke Abdi Abdullahi</h2>
+      <p class="lead text-primary fw-semibold">Software Engineer | Full-Stack Developer | Data Science Enthusiast</p>
+      <div class="bio-text">
+        <p>I am a passionate software engineer from Dhaka, Bangladesh, currently pursuing a BSc in Software Engineering at Daffodil International University. I specialize in full-stack development, data science, and AI. My mission is to build impactful technology solutions that solve real-world problems in Somalia and across Africa.</p>
+      </div>
+      <div class="row mt-4">
+        <div class="col-6">
+          <div class="fact-card">
+            <div class="number">2+</div>
+            <div class="label">Years Experience</div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="fact-card">
+            <div class="number">10+</div>
+            <div class="label">Projects Completed</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mission Cards (Glassmorphism) -->
+  <div class="row g-4 mt-5">
+    <div class="col-md-4">
+      <div class="mission-card text-center">
+        <i class="fas fa-bullseye"></i>
+        <h3>Career Goal</h3>
+        <p>To become a leading tech entrepreneur and drive digital transformation in emerging markets, focusing on healthtech, edtech, and fintech.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="mission-card text-center">
+        <i class="fas fa-heart"></i>
+        <h3>Personal Mission</h3>
+        <p>To leverage technology for social good and empower the next generation of African developers.</p>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="mission-card text-center">
+        <i class="fas fa-globe"></i>
+        <h3>Future Vision</h3>
+        <p>Building scalable tech ecosystems that solve Africa's most pressing challenges, starting with education and healthcare.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Technology Interests -->
+  <div class="mt-5">
+    <h2 class="section-title">Technology Interests</h2>
+    <div class="row g-3">
+      <div class="col-md-3 col-6">
+        <div class="service-card p-3 text-center">
+          <i class="fab fa-react fa-2x text-primary"></i>
+          <p class="mt-2 fw-semibold">React / Next.js</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="service-card p-3 text-center">
+          <i class="fas fa-chart-line fa-2x text-primary"></i>
+          <p class="mt-2 fw-semibold">ML & Data Science</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="service-card p-3 text-center">
+          <i class="fas fa-cloud fa-2x text-primary"></i>
+          <p class="mt-2 fw-semibold">Cloud & DevOps</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="service-card p-3 text-center">
+          <i class="fab fa-github fa-2x text-primary"></i>
+          <p class="mt-2 fw-semibold">Open Source</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Personal Quote (gradient background) -->
+  <div class="personal-quote mt-5">
+    <i class="fas fa-quote-right"></i>
+    <p>"The only way to do great work is to love what you do. And I love building solutions that change lives."</p>
+    <div class="author">— Sharmarke Abdi Abdullahi</div>
   </div>
 </div>
 

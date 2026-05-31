@@ -4,7 +4,11 @@ const session = require('express-session');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const path = require('path');
+const cookieParser = require('cookie-parser');           // <-- ADDED
 const db = require('./config/database');
+
+// Import locale middleware
+const { setLocale, setLanguage } = require('./middleware/localeMiddleware');  // <-- ADDED
 
 // Import route modules
 const pageRoutes = require('./routes/pageRoutes');
@@ -18,14 +22,13 @@ app.use(helmet({
   contentSecurityPolicy: false, // Allows inline scripts (Bootstrap uses some)
 }));
 
-// ========== RATE LIMITING (Fixed: skip static files, higher limit in dev) ==========
+// ========== RATE LIMITING (skip static files, higher limit in dev) ==========
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: process.env.NODE_ENV === 'production' ? 100 : 10000, // 10,000 requests in dev
+  max: process.env.NODE_ENV === 'production' ? 100 : 10000,
   skip: (req) => {
-    // Skip rate limiting for static assets (CSS, JS, images, uploads)
     const staticPaths = ['/css/', '/js/', '/images/', '/uploads/', '/favicon.ico'];
-    return staticPaths.some(path => req.url.startsWith(path));
+    return staticPaths.some(p => req.url.startsWith(p));
   },
   message: 'Too many requests from this IP, please try again later.',
 });
@@ -39,6 +42,12 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// ========== COOKIE PARSER (for language preference) ==========
+app.use(cookieParser());                                      // <-- ADDED
+
+// ========== LOCALE MIDDLEWARE (must be before routes) ==========
+app.use(setLocale);                                           // <-- ADDED
+
 // ========== STATIC FILES (must be before routes) ==========
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -49,9 +58,9 @@ app.use(session({
   resave: false,
   saveUninitialized: false,
   cookie: {
-    secure: process.env.NODE_ENV === 'production', // true only in HTTPS
+    secure: process.env.NODE_ENV === 'production',
     httpOnly: true,
-    maxAge: 3600000, // 1 hour
+    maxAge: 3600000,
   },
 }));
 
@@ -60,6 +69,9 @@ app.use((req, res, next) => {
   res.locals.user = req.session.user || null;
   next();
 });
+
+// ========== LANGUAGE SWITCHER ROUTE (place before other routes) ==========
+app.get('/lang/:lang', setLanguage);                          // <-- ADDED
 
 // ========== ROUTES ==========
 app.use('/', pageRoutes);
@@ -75,7 +87,10 @@ app.use((req, res) => {
 // Global error handler
 app.use((err, req, res, next) => {
   console.error('Server Error:', err.stack);
-  res.status(500).render('errors/500', { title: 'Server Error', error: process.env.NODE_ENV === 'development' ? err.message : null });
+  res.status(500).render('errors/500', {
+    title: 'Server Error',
+    error: process.env.NODE_ENV === 'development' ? err.message : null
+  });
 });
 
 // ========== DATABASE SYNC & SERVER START ==========
